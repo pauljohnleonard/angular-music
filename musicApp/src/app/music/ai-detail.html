@@ -1,0 +1,89 @@
+<style>
+  .flex-container {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+         align-items: center;
+        justify-content: center;
+    }
+    
+   
+    .flex-item-number {
+        position: relative;
+        padding: 0px;
+        vertical-align: middle;
+        min-width:10px;
+        width: 25px;
+        font-weight: bold;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .flex-item-die {
+        position: relative;
+        padding: 0px;
+        vertical-align: middle;
+        min-width:10px;
+        width: 25px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+   .flex-item-snaplabel {
+        position: relative;
+        padding: 0px;
+        vertical-align: middle;
+        min-width:10px;
+        width: 25px;
+        font-weight: bold;
+        text-align:center;
+        background-color: pink;
+    }
+
+   .flex-item-name {
+        position: relative;
+        padding: 1px;
+        vertical-align: middle;
+        width: 60px;
+        font-weight: bold;
+        text-align: center;
+        flex-grow:1;
+    }
+
+</style>
+
+<mat-card *ngIf="ai && ai.net">
+    <mat-card-content style="height:40px;">
+
+        <div class="flex-container">
+        <button class="flex-item-name" mat-button *ngIf="aiName" [matMenuTriggerFor]="menu"> 
+                    {{aiName}}
+                 </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let n of netService.names" [value]="ai.net.name" (click)="aiName=n">
+                          {{ n }}
+                   </button>
+        </mat-menu>
+
+        <input class="flex-item-number"mdInput *ngFor="let n of nHidden;let i = index" [(ngModel)]="nHidden[i]" type="number" value="20" min="1" max="30"
+        />
+
+        <button class="flex-item-die" mat-icon-button (click)="ai.select(ai.snapID-1)"><mat-icon>navigate_before</mat-icon> </button>
+    
+        <button class="flex-item-die" mat-icon-button (click)="ai.snap()"><mat-icon>add_a_photo</mat-icon> </button>
+    
+        <button class="flex-item-die" mat-icon-button (click)="ai.select(ai.snapID+1)"><mat-icon>navigate_next</mat-icon> </button>
+    
+        <div class="flex-item-snaplabel"> {{ai.snapID2Label(ai.snapID)}} </div> 
+
+        <button class="flex-item-die" mat-icon-button (click)="implant()" ><img src="assets/images/die_roll.png" /> </button>
+        </div>
+    </mat-card-content>
+
+</mat-card>

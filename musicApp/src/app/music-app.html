@@ -1,0 +1,75 @@
+<style>
+    .btn1 {
+        min-width: 20px;
+        padding: 0px 0px;
+    }
+    
+    .btn2 {
+        min-width: 15px;
+        padding: 0px 0px;
+    }
+    
+    .hiLi:hover {
+        background: yellow;
+    }
+</style>
+
+
+<div style="width: 100%">
+    <div class="button-row">
+        <div class="btn-group">
+            <button class="btn1" mat-raised-button matTooltip={{playstopTip}} (click)="play()">     
+                           <mat-icon> {{play_stop_icon}}  </mat-icon></button>
+
+            <button *ngIf="pauseable" class="btn1" matTooltip="pause/resume" mat-raised-button color={{pause_text}} (click)="pause()">
+                         <mat-icon>pause</mat-icon> </button>
+
+            <button mat-raised-button class="btn1" (click)="record()" color={{recordColor}} matTooltip="START RECORDING" style="color:#FF0000;">     
+                          <mat-icon>fiber_manual_record</mat-icon> </button>
+
+
+
+            <button class="btn1" *ngIf="music && music.metro.active" mat-raised-button (click)="music.metro.active=false" color='accent'
+                matTooltip="METRO OFF">      
+                            <img src="assets/images/tempo.png" style="height: 32px" alt="midiin" /> </button>
+
+            <button class="btn1" *ngIf="music && !music.metro.active" mat-raised-button (click)="music.metro.active=true" matTooltip="METRO ON">     
+                            <img src="assets/images/tempo_off.png" style="height: 32px" alt="midiin" /> </button>
+
+
+            <button mat-button class="btn1 " [matMenuTriggerFor]="list" style="float:middle;">
+                      {{music.pulse.timeSig}} </button>
+
+
+            <mat-menu #list="matMenu">
+                <mat-list>
+                    <mat-list-item class="hiLi" *ngFor="let sig of music.pulse.timeSigs" (click)="music.pulse.setTimeSig(sig)">
+                        {{sig}}
+                    </mat-list-item>
+                </mat-list>
+            </mat-menu>
+
+         
+            <button *ngIf="slidershow" style="background:yellow" mat-button class="btn1" (click)="slidershow = !slidershow"><!-- style="float:middle;" -->
+                       <img src="assets/images/crochet.png" style="height:25px"/> {{music.pulse.bpm}} </button>
+
+
+            <button *ngIf="!slidershow" mat-button class="btn1" (click)="slidershow = !slidershow" style="float:middle;">
+                       <img src="assets/images/crochet.png" style="height:25px"/> {{music.pulse.bpm}} </button>
+
+
+            <monitor  [monitor]="monitor" style="float:right" ></monitor>
+
+            <div *ngIf="slidershow">
+                <!--  style="width: 100%"-->
+                <metro-slide #linechart [value]="music.pulse.bpm" (change)="music.pulse.bpm=$event">
+                </metro-slide>
+            </div>
+
+        </div>
+       
+    </div>
+</div>
+
+
+<music-comp [music]="music"> </music-comp>

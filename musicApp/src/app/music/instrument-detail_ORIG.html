@@ -1,0 +1,20 @@
+<div *ngIf="inst">
+    <button mat-button [matMenuTriggerFor]="list" style="float:middle;">
+                      {{inst.name}}
+                 </button>
+
+
+
+
+    <-mat-menu #list="matMenu" [overlapTrigger]="false">
+        <mat-list dense style="width:100%">
+            <div style="height:300px;overflow:scroll;">
+                <button mat-list-item *ngFor="let t of sfService.names" [value]="instname" (click)="setInst(t)">
+                          {{ t }}
+                         </button>
+            </div>
+        </mat-list>
+    </mat-menu>
+
+
+</div>
