@@ -5,23 +5,23 @@ import { BrowserModule } from '@angular/platform-browser';
 // import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { AIDetailComponent } from './music/ai-detail.component';
-import { PlayerDetailComponent } from './music/player-detail.component';
-import { InstrumentDetailComponent } from './music/instrument-detail.component';
-import { MusicComponent } from './music/music.component';
+import { AIDetailComponent } from './components/ai-detail.component';
+import { PlayerDetailComponent } from './components/player-detail.component';
+import { InstrumentDetailComponent } from './components/instrument-detail.component';
+import { MusicComponent } from './components/music.component';
 import { MusicAppComponent } from './music-app.component';
 
 import { DBService } from './services/db.service';
 import { FirebaseDBService } from './services/firebasedb.service';
 import { SFService } from './services/sf.service';
-import { SettingsService } from './services/settings.service';
+import { SettingsService } from '../music/settings.service';
 import { NetService } from './services/net.service';
-import { SamplesService } from './services/samples.service';
+import { SamplesService } from '../music/samples.service';
 
 import { LoadDialog } from './dialogs/load.dialog'
 import { MetroDialog } from './dialogs/metro.dialog'
-import { MetroSlideComponent } from './music/metro-slide.component';
-import { MonitorComponent } from './music/monitor.component'
+import { MetroSlideComponent } from './components/metro-slide.component';
+import { MonitorComponent } from './components/monitor.component'
 import { SliderValComponent } from './slider-val.component'
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

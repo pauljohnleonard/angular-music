@@ -1,5 +1,5 @@
-import { Component,Input} from '@angular/core';
-import { Music } from './music'
+import { Component, Input } from '@angular/core';
+import { Music } from '../../app/music/music'
 
 @Component({
     selector: "music-comp",
@@ -24,30 +24,30 @@ import { Music } from './music'
                 </div>
                </div>    
        </mat-card>
-    ` 
-}) 
+    `
+})
 
 
 export class MusicComponent {
-    
+
     @Input() music: Music;
-    
+
     constructor() {
-  
+
     }
 
-    addPlayerType(t:string) {
+    addPlayerType(t: string) {
 
-        switch(t) {
-          case "AI":
-            this.music.addAIPlayer("marimba",null,null)
-            break
-          case "midi":
-            this.music.addMidiPlayer("marimba",null)
-            break
+        switch (t) {
+            case "AI":
+                this.music.addAIPlayer("marimba", null, null)
+                break
+            case "midi":
+                this.music.addMidiPlayer("marimba", null)
+                break
+            case "kit":
+                this.music.addDrumPlayer("kit", null)
+                break
         }
     }
-
-
-  
 } 

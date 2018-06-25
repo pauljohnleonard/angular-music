@@ -8,7 +8,7 @@ import { LoadDialog } from './dialogs/load.dialog'
 import { MetroDialog } from './dialogs/metro.dialog'
 
 
-import { SettingsService } from './services/settings.service';
+import { SettingsService } from '../music/settings.service';
 
 @Component({
     moduleId: 'app/',

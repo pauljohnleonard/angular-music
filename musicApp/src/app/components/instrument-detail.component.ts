@@ -2,7 +2,7 @@
 import { map, startWith } from 'rxjs/operators';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { SFService } from '../services/sf.service'
-import { Instrument } from './instrument'
+import { SFInstrument } from '../../music/sfinstrument'
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material'
 
@@ -16,8 +16,8 @@ import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material'
 })
 
 
-export class InstrumentDetailComponent {
-    @Input() inst: Instrument;
+export class InstrumentDetailComponent implements OnInit{
+    @Input() inst: SFInstrument;
     @ViewChild(MatAutocompleteTrigger) auto: MatAutocomplete
 
     nameCtrl: FormControl;

@@ -1,9 +1,9 @@
-import { Instrument } from './instrument'
-import { Ticker } from './ticker'
-import { Music } from './music'
-import { Savable } from './savable'
+import { SFInstrument } from '../../music/sfinstrument'
+import { Ticker } from '../../music/ticker'
+import { Music } from '../../app/music/music'
+import { Savable } from '../../music/savable'
 import { MidiSequencer } from './midisequencer'
-import { Thing } from './thing'
+import { Thing } from '../../music/thing'
 import { AI } from './ai'
 import { Mapper } from './mapper'
 
@@ -54,10 +54,10 @@ export class Player extends Savable implements Ticker, Thing {
     type: string
     viewMe = true
     expanded = true
-    inst: Instrument
+    inst: Instrument | SFInstrument
     ai: AI = null
     name: string
-    recording= false
+    recording = false
     mapper: Mapper = null
 
     constructor(public music: Music, public band: Band) {
@@ -99,7 +99,7 @@ export class Player extends Savable implements Ticker, Thing {
 
         if (this.id !== null) return this.id
 
-        let postItems: any = {}
+        const postItems: any = {}
 
         if (this.ticker.addPostItems !== undefined) {
             this.ticker.addPostItems(postItems, saver)
@@ -108,11 +108,11 @@ export class Player extends Savable implements Ticker, Thing {
         postItems.inst = this.inst.name
 
         if (this.ai) {
-            let id = this.ai.saveDB(saver)
-            postItems.ai = id
+            const id1 = this.ai.saveDB(saver)
+            postItems.ai = id1
         }
 
-        let id = saver.newIDItem('players', postItems)
+        const id = saver.newIDItem('players', postItems)
         return id
     }
 

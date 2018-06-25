@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AI } from "./ai"
-import { Generator } from './generator'
+import { AI } from "../music/ai"
+import { Generator } from '../music/generator'
 import { SFService } from '../services/sf.service'
 import { NetService } from '../services/net.service'
 
@@ -11,7 +11,7 @@ import { NetService } from '../services/net.service'
 
 })
 
-export class AIDetailComponent {
+export class AIDetailComponent implements OnInit {
     @Input() ai: AI;
 
     aiName: any = null
@@ -24,7 +24,7 @@ export class AIDetailComponent {
 
     ngOnInit() {
         console.log("NGINIT")
-        for (let name in this.netService.types) {
+        for (const name in this.netService.types) {
 
             if (name === this.ai.net.netname) {
                 this.aiName = name

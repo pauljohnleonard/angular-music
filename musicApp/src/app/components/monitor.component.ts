@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Monitor } from "./monitor"
+import { Monitor } from "../music/monitor"
 @Component({
-  selector: "monitor",
+    selector: "monitor",
 
-  template:
-    `<div *ngIf="monitor.underruns" (click)="monitor.reset()" style="background:red" > 
+    template:
+        `<div *ngIf="monitor.underruns" (click)="monitor.reset()" style="background:red" > 
       {{monitor.underruns}} {{monitor.maxUnder}}     
     </div>
 
@@ -16,8 +16,8 @@ import { Monitor } from "./monitor"
 })
 
 export class MonitorComponent {
-  @Input() monitor:Monitor
+    @Input() monitor: Monitor
 
-  constructor(){}
- 
+    constructor() { }
+
 }

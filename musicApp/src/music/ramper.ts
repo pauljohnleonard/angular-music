@@ -4,9 +4,9 @@ import { Ticker } from "./ticker"
 /*
 class RamperDisplayer(ramp,element) {
     this.ramp = Ramper
-    this.element = element  
+    this.element = element
 
-}   	
+}
 
 RamperDisplayer.prototype.tick = function () {
     this.element.innerHTML = this.ramp.toHTML()
@@ -16,23 +16,36 @@ RamperDisplayer.prototype.tick = function () {
 
 const TOL = 0.00001
 
+
+
+/**
+ *
+ *
+ * @export
+ * @class Ramper
+ * @implements {Ticker}
+ * 
+ * Generate ramps from 0 to 1  for an array of ticks.
+ * Advances by last tic at end of the sequencence
+ * 
+ */
 export class Ramper implements Ticker {
 
     tickPtr: number
     tStart: number
     val: number
-    type: string = "Ramper"
+    type = "Ramper"
     ticks: Array<number>
 
-    constructor(private pulse: Pulse,) {
+    constructor(private pulse: Pulse, ) {
         this.pulse = pulse
         this.pulse.addClient(this)
     }
 
     setTicks(ticks: Array<number>) {
-        this.ticks=ticks
+        this.ticks = ticks
     }
-            
+
 
     start() {
         this.tickPtr = 0
@@ -44,14 +57,14 @@ export class Ramper implements Ticker {
     tick() {
 
         if (this.ticks === undefined) {
-            this.val=0.0
-          
+            this.val = 0.0
+
         } else {
 
-            var time: number = this.pulse.beat - this.tStart
+            let time: number = this.pulse.beat - this.tStart
             while (true) {
-                var t1 = this.ticks [this.tickPtr]
-                var t2 = this.ticks[this.tickPtr + 1]
+                const t1 = this.ticks[this.tickPtr]
+                const t2 = this.ticks[this.tickPtr + 1]
                 if (time + 0.00001 >= t2) {        //  advance a bit so we always catch the sharp rise
                     this.tickPtr = this.tickPtr + 1
                     if (this.tickPtr >= this.ticks.length - 1) {
@@ -61,7 +74,7 @@ export class Ramper implements Ticker {
                     }
                     continue
                 } else if (time + TOL < t1) {
-                    console.log("time<t1 SHOULD NOT HAPPEN ")   // Well I guess 
+                    console.log("time<t1 SHOULD NOT HAPPEN ")   // Well I guess
                 }
                 this.val = (t2 - time) / (t2 - t1)
                 break;
@@ -77,6 +90,6 @@ export class Ramper implements Ticker {
 
 /*
 Ramper.prototype.toHTML = function()  {
-    return    this.tickPtr + " :  " + this.val 
+    return    this.tickPtr + " :  " + this.val
 }
 */

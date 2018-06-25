@@ -1,29 +1,31 @@
-
 declare var Soundfont: any
 declare var audioContext: any
 
-export class Instrument {
+
+
+
+export class SFInstrument implements Instrument {
 
     started = {}
     opts = {}
 
     inst: any
     gainValue: Number
-    muted: boolean = false
-    midiIn: boolean = false
-    sustaining: boolean = false
+    muted = false
+    midiIn = false
+    sustaining = false
     sustainedKeys: Array<boolean> = new Array(128)
     loading: boolean
 
     constructor(public name: string, private monitor: any) {
         this.setInst(name)
-        this.sustainedKeys.fill(false)    
+        this.sustainedKeys.fill(false)
     }
 
 
     mute(yes: boolean) {
 
-        if (this.muted == yes) return;
+        if (this.muted === yes) return;
         this.muted = yes
         //      console.log(this.name + " mute " + yes);
         if (yes) {
@@ -36,15 +38,15 @@ export class Instrument {
     }
 
     setInst(name: string) {
-        var self = this
+
         this.loading = true
         this.name = name
         // this.obs.next("loading . . . ")
         Soundfont.instrument(audioContext, name).then((inst: any) => {
             this.inst = inst
-            this.loading=false    
+            this.loading = false
             this.gainValue = inst.out.gain.value
-          })
+        })
     }
 
 
@@ -94,18 +96,19 @@ export class Instrument {
 
     playEvent(event: Array<number>, when: number) {
 
-        var etype = event[0] & 0xF0
-        if (etype == 144) {
+        // tslint:disable-next-line:no-bitwise
+        const etype = event[0] & 0xF0
+        if (etype === 144) {
             //  console.log(etype)
-            var key = event[1]
-            var vel = event[2]
+            const key = event[1]
+            const vel = event[2]
             this.playNote(key, vel / 127, when)
-        } else if (etype == 128) {
+        } else if (etype === 128) {
             //   console.log(etype)
-            var key = event[1]
+            const key = event[1]
             this.playNote(key, 0, when)
         } else if (etype === 176) {
-            var cc = event[1]
+            const cc = event[1]
             if (cc === 64) {
                 if (event[2] > 0) this.sustain(true, when)
                 else this.sustain(false, when)

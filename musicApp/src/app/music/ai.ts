@@ -1,9 +1,9 @@
 import { DBService } from '../services/db.service'
 import { NetService } from '../services/net.service'
 import { Net } from './net'
-import { Ticker } from './ticker'
-import { Pulse } from './pulse'
-import { Savable } from './savable'
+import { Ticker } from '../../music/ticker'
+import { Pulse } from '../../music/pulse'
+import { Savable } from '../../music/savable'
 
 import { Generator } from './generator'
 import { Scenable } from './scenable'
@@ -58,7 +58,7 @@ export class AI extends Savable implements Scenable {
 
     snapID2Label(i: number): string {
         if (i === null) return '?'
-        let chr = String.fromCharCode(65 + i);
+        const chr = String.fromCharCode(65 + i);
         return chr
     }
 
@@ -85,7 +85,7 @@ export class AI extends Savable implements Scenable {
 
         this.net = Object.create(proto);
 
-        let generator = new Generator(net.seed)
+        const generator = new Generator(net.seed)
 
         if (net.nIn !== this.nIn) {
             if (net.nIn) console.log(" input mismatch deal with it PAUL ")
@@ -118,7 +118,7 @@ export class AI extends Savable implements Scenable {
     saveDB(saver: any): any {
         if (this.id !== null) return this.id
 
-        let postItems: any = {}
+        const postItems: any = {}
         let id = this.net.saveDB(saver)
         postItems.net = id
 
