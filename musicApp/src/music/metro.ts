@@ -1,7 +1,7 @@
 import { Ticker } from "./ticker"
 import { Pulse } from "./pulse"
 import { SamplesService } from "./samples.service"
-import { SamplePlayer, Sample } from "./sample"
+import { SamplePlayer } from "./sample"
 
 declare var audioContext: any
 
@@ -21,10 +21,13 @@ export class Metro implements Ticker {
 
         this.pulse.addClient(this)
      
-       
-        this.samples[0] = new SamplePlayer(new Sample(Metro._samples["Clave"], samplesService))
-        this.samples[1] = new SamplePlayer(new Sample(Metro._samples["Taktell"], samplesService))
-        this.samples[2] = new SamplePlayer(new Sample(Metro._samples["DanBeat"], samplesService))
+        samplesService.samplePlayer(Metro._samples["Clave"]).then(sp => this.samples[0] = sp);
+        samplesService.samplePlayer(Metro._samples["Taktell"]).then(sp => this.samples[1] = sp);
+        samplesService.samplePlayer(Metro._samples["DanBeat"]).then(sp => this.samples[2] = sp);
+         
+        // this.samples[0] = new SamplePlayer(new Sample(, )
+        // this.samples[1] = new SamplePlayer(new Sample(Metro._samples["Taktell"], samplesService))
+        // this.samples[2] = new SamplePlayer(new Sample(Metro._samples["DanBeat"], samplesService))
     }
 
 

@@ -1,7 +1,7 @@
 import { Ticker } from "./ticker"
 import { Pulse } from "./pulse"
 import { SamplesService } from "./samples.service"
-import { SamplePlayer, Sample } from "./sample"
+import { SamplePlayer } from "./sample"
 
 declare var audioContext: any
 
@@ -9,13 +9,13 @@ const TOL = 0.0001
 
 
 
-class DrumLoop {
+// class DrumLoop {
 
-        samplePlayer: SamplePlayer
-
+//         samplePlayer: SamplePlayer
+//         constructor(DrumPlayer._samples["Clave"], samplesService)
 
  
-}
+// }
 
 
 export class DrumPlayer implements Ticker, Instrument {
@@ -35,9 +35,15 @@ export class DrumPlayer implements Ticker, Instrument {
         this.pulse.addClient(this)
         
        
-        this.samples[0] = new SamplePlayer(new Sample(DrumPlayer._samples["Clave"], samplesService))
-        this.samples[1] = new SamplePlayer(new Sample(DrumPlayer._samples["Taktell"], samplesService))
-        this.samples[2] = new SamplePlayer(new Sample(DrumPlayer._samples["DanBeat"], samplesService))
+        samplesService.samplePlayer(DrumPlayer._samples["Clave"]).then(
+             (sp) => { this.samples[0] = sp; }
+        );
+
+       // this.samples[0] = new SamplePlayer(new Sample(DrumPlayer._samples["Clave"], samplesService))
+        // 
+        /// new SamplePlayer(new Sample(DrumPlayer._samples["Clave"], samplesService))
+        // this.samples[1] = new SamplePlayer(new Sample(DrumPlayer._samples["Taktell"], samplesService))
+        // this.samples[2] = new SamplePlayer(new Sample(DrumPlayer._samples["DanBeat"], samplesService))
     }
 
 
@@ -69,7 +75,7 @@ export class DrumPlayer implements Ticker, Instrument {
 
         const ii = this.pulse.accents[index]
 
-        const sample = this.samples[ii]
+        const sample = this.samples[0]
 
         if (sample !== undefined) sample.play(this.pulse.time)
 

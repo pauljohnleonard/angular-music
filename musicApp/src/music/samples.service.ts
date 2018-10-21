@@ -1,5 +1,6 @@
 
 import { Injectable } from '@angular/core';
+import { SamplePlayer } from './sample';
 
 declare var audioContext: any
 
@@ -8,7 +9,9 @@ declare var audioContext: any
 @Injectable()
 export class SamplesService {
 
-//    samples: Array<any> = []
+    //    samples: Array<any> = []
+    static cache = {}
+
 
     constructor() {
 
@@ -35,7 +38,26 @@ export class SamplesService {
         })
         return p;
     }
+
+    samplePlayer(name): Promise<SamplePlayer> {
+
+
+        return new Promise<SamplePlayer>((resolve, reject) => {
+            let buffer;
+            if (SamplesService.cache[name]) {
+                buffer = SamplesService.cache[name]
+            } else {
+                this.load(name).then((buff: any) => {
+                    buffer = buff
+                    SamplesService.cache[name] = buff;
+                    resolve(new SamplePlayer(buff));
+                })
+            }
+
+        });
+    }
 }
+
 
 
 
