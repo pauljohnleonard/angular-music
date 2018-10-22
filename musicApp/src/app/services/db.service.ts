@@ -2,39 +2,29 @@ import { Injectable } from '@angular/core';
 
 
 @Injectable()
-export class DBService {
+export abstract class DBService {
 
-    user:any=null
-    clients:Array<any>=[]
-    provider:any
-
-    constructor(){
-         console.log(" MAKING A DBSERVICE")
-    }   
-
-    register(cb:any):void {
-        
-    }
-
-    clean() {
+    user: any = null
+    clients: Array<any> = []
+    provider: any
 
 
-    }
+    abstract register(cb: any): void ;
+
+    abstract clean(): void;
 
 
-    signIn() {
-    }
+    abstract signIn(): void;
 
-    signOut() {
-    }
+    abstract signOut(): void;
 
-    onAuthStateChanged(user:any) {
+    onAuthStateChanged(user: any) {
         // We ignore token refresh events.
     }
 
-    writeUserData(userId:any, name:any, email:any, imageUrl:any) {
-    }
+    abstract writeUserData(userId: any, name: any, email: any, imageUrl: any): void;
 
-    newIDItem(path:string,postData:any):any {return null}
+    /* Add a new item to the database at the path  containing the postData */
+    abstract addItemAtPath(path: string, postData: any): string;
 }
 

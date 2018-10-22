@@ -18,10 +18,10 @@ export class SamplesService {
     }
 
 
-    load(url: string): Promise<any> {
+    load(url: string): Promise<AudioBuffer> {
         // Load asynchronously
 
-        const p = new Promise((resolve, reject) => {
+        const p = new Promise<AudioBuffer>((resolve, reject) => {
             const request = new XMLHttpRequest();
             request.open("GET", url, true);
 
@@ -29,7 +29,7 @@ export class SamplesService {
 
 
             request.onload = function () {
-                audioContext.decodeAudioData(request.response, (buffer: any) => {
+                audioContext.decodeAudioData(request.response, (buffer: AudioBuffer) => {
                     resolve(buffer)
                 })
             }
@@ -43,17 +43,15 @@ export class SamplesService {
 
 
         return new Promise<SamplePlayer>((resolve, reject) => {
-            let buffer;
-            if (SamplesService.cache[name]) {
-                buffer = SamplesService.cache[name]
+            const  buff = SamplesService.cache[name];
+            if (buff) {
+                resolve(new SamplePlayer(buff));
             } else {
-                this.load(name).then((buff: any) => {
-                    buffer = buff
-                    SamplesService.cache[name] = buff;
-                    resolve(new SamplePlayer(buff));
+                this.load(name).then((buffnew: any) => {
+                    SamplesService.cache[name] = buffnew;
+                    resolve(new SamplePlayer(buffnew));
                 })
             }
-
         });
     }
 }

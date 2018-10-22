@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MatFormFieldModule, MatSelectModule, MatInputModule,
      MatCardModule, MatIconModule, MatButtonModule, MatSidenavModule, MatListModule,
       MatToolbarModule, MatSnackBarModule, MatMenuModule, MatAutocompleteModule, MatTooltipModule } from '@angular/material';
+import { DrumkitScoreDetailComponent } from './drumkit-score-detail/drumkit-score-detail.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { MatDialogModule, MatFormFieldModule, MatSelectModule, MatInputModule,
         })
     ],
     declarations: [AppComponent, AIDetailComponent, InstrumentDetailComponent, PlayerDetailComponent,
-        MusicComponent, MusicAppComponent, LoadDialog, MetroDialog, MetroSlideComponent, MonitorComponent, SliderValComponent],
+        MusicComponent, MusicAppComponent, LoadDialog, MetroDialog, MetroSlideComponent, 
+        MonitorComponent, SliderValComponent, DrumkitScoreDetailComponent],
     providers: [{ provide: DBService, useClass: FirebaseDBService },
         SFService, SamplesService, NetService, SettingsService],
     bootstrap: [AppComponent],

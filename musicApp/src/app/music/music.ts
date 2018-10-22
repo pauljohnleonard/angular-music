@@ -64,7 +64,7 @@ export class Music extends Savable {
                 })
             })
 
-        this.setID(0)
+        this.setID('0')
         this.constructorX()
     }
 
@@ -102,19 +102,19 @@ export class Music extends Savable {
         switch (playerSnap.child("type").val()) {
 
             case "MidiSequencer":
-                instName = playerSnap.child("inst").val()
-                const midiPlayer = this.addMidiPlayer(instName, pos)
-                midiPlayer.setID(playerSnap.key)
-                const midiKey = playerSnap.child("midi").val()
-                if (midiKey !== null) {
-                    const midiRef = firebase.database().ref("midi").child(midiKey);
-                    midiRef.once("value").then((midi: any) => {
-                        const midiData: any = JSON.parse(midi.val())
-                        const seq: MidiSequencer = <MidiSequencer>midiPlayer.ticker
-                        seq.setBuffer(midiData, midiKey)
-                    })
-                }
-                break
+            instName = playerSnap.child("inst").val()
+            const midiPlayer = this.addMidiPlayer(instName, pos)
+            midiPlayer.setID(playerSnap.key)
+            const midiKey = playerSnap.child("midi").val()
+            if (midiKey !== null) {
+                const midiRef = firebase.database().ref("midi").child(midiKey);
+                midiRef.once("value").then((midi: any) => {
+                    const midiData: any = JSON.parse(midi.val())
+                    const seq: MidiSequencer = <MidiSequencer>midiPlayer.ticker
+                    seq.setBuffer(midiData, midiKey)
+                })
+            }
+            break
 
 
             case "AISequencer":
@@ -137,6 +137,16 @@ export class Music extends Savable {
                 this.pulse.loadSnap(playerSnap)
 
                 break
+
+            case "DrumPlayer":
+                instName = playerSnap.child("inst").val();
+                const player = this.addDrumPlayer(instName, pos);
+                player.setID(playerSnap.key);
+                const scoreText = playerSnap.child("score").val();
+                (player.inst as DrumPlayer).update(JSON.parse(scoreText));
+            
+                 break
+
             default:
                 console.log("UNKOWN TYPE : " + playerSnap.child("type").val())
         }
@@ -257,7 +267,7 @@ export class Music extends Savable {
             if (this.things[index] === player) {
                 this.things.splice(index, 1);
                 this.change()
-                if (this.things.length === 0) this.setID(0)
+                if (this.things.length === 0) this.setID('0')
                 return;
             }
         }

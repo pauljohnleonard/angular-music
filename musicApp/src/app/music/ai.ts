@@ -115,14 +115,14 @@ export class AI extends Savable implements Scenable {
 
 
 
-    saveDB(saver: any): any {
+    saveDB(saver: DBService): string {
         if (this.id !== null) return this.id
 
         const postItems: any = {}
         let id = this.net.saveDB(saver)
         postItems.net = id
 
-        id = saver.newIDItem('ai', postItems)
+        id = saver.addItemAtPath('ai', postItems)
 
         this.setID(id)
         return id

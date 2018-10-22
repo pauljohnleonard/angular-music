@@ -111,6 +111,7 @@ export class Pulse extends Savable implements Thing {
             const delta = this.getTime() - this.time
             const nextBeat = this.beat + delta * this.bpm / 60
             while (this.beat + this.tickLen <= nextBeat) {
+               //  console.log( this.beat )
                 this.state = []
                 this.clients.forEach((client) => { client.tick() })
                 this.beat += this.tickLen
@@ -121,6 +122,7 @@ export class Pulse extends Savable implements Thing {
 
 
     addClient(client: Ticker): void {
+        console.log( " ADDING CLIENT "  , client );
         this.clients.push(client)
     }
 

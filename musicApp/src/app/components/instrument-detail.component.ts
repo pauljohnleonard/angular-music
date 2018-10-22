@@ -32,7 +32,7 @@ export class InstrumentDetailComponent implements OnInit{
             startWith(null),
             map(name => this.filterNames(name)), );
 
-        console.log(name)
+    //    console.log(name)
         this.nameCtrl.valueChanges.subscribe((val) => {
 
             console.log(val)

@@ -25,22 +25,23 @@ declare var audioContext: any
 
 export class SamplePlayer {
 
-    gain: any
-    constructor(public buffer: Buffer ) {
-        this.gain = audioContext.createGain();
-        this.gain.gain.value = 0.1
-        this.gain.connect(audioContext.destination);
+    _gain: any
+    constructor(public buffer: any ) {
+        this._gain = audioContext.createGain();
+        this._gain.gain.value = 0.1
+        this._gain.connect(audioContext.destination);
     }
+
 
     play(when: number): void {
         const source: any = audioContext.createBufferSource();
         source.buffer = this.buffer
-        source.connect(this.gain);
+        source.connect(this._gain);
         source.start(when)
     }
 
-    setGain(val: number): void {
-        this.gain.gain.value = val
+    set gain(val: number) {
+        this._gain.gain.value = val
     }
 }
 

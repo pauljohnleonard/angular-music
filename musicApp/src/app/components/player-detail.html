@@ -65,5 +65,11 @@
             <ai-detail [ai]="player.ai"> </ai-detail>
         </div>
 
+        <div *ngIf="player.inst.name ==='kit'  && player.expanded">
+            <app-drumkit-score-detail [player]="player.inst"> </app-drumkit-score-detail>
+        </div>
+
+
+
     </mat-card-content>
 </mat-card>
